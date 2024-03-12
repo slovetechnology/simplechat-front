@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --outgoing-color: #77b5ab;
+}
+.outgo {
+  background-color: var(--outgoing-color);
+}
+
+body {
+  background: #111827;
+  font-family: "Nunito Sans", sans-serif;
+}
+.tile {
+  background: url(./assets/tile.png)center/cover;
+}
+.incoming::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -0.3rem;
+  border-style: solid;
+  border-width: 0.35rem;
+  border-color: white white transparent transparent;
+}
+.outgoing::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -0.3rem;
+  border-style: solid;
+  border-width: 0.35rem;
+  border-color: var(--outgoing-color) transparent transparent var(--outgoing-color);
+}
