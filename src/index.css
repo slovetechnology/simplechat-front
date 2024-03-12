@@ -38,3 +38,27 @@ body {
   border-width: 0.35rem;
   border-color: var(--outgoing-color) transparent transparent var(--outgoing-color);
 }
+
+.scrolls::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrolls::-webkit-scrollbar-thumb {
+  width: 4px;
+  background: lightgrey;
+  border-radius: 10px;
+}
+
+.scrollsdown::-webkit-scrollbar {
+  height: 4px;
+}
+
+.scrollsdown::-webkit-scrollbar-thumb {
+  height: 4px;
+  background: lightgrey;
+  border-radius: 10px;
+}
+.chatform {
+  min-height: 15px;
+  max-height: 80px;
+}

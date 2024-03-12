@@ -11,12 +11,10 @@ export default function ChatRoom() {
     const divRef = useRef()
 
     const MoveToBottom = () => {
-        if(divRef.current) {
-            divRef.current.scrollTo({
-                top: divRef.current.scrollHeight,
-                behavior:'smooth'
-            })
-        }
+        divRef.current.scrollTo({
+            top: divRef.current.scrollHeight,
+            behavior: 'smooth'
+        })
     }
 
     useEffect(() => {
@@ -24,23 +22,23 @@ export default function ChatRoom() {
     }, [messages])
 
     const sendMessage = (msg) => {
+        MoveToBottom()
         let newSender;
         const lastMessage = messages[messages.length - 1];
-        if(lastMessage) {
-            if(lastMessage.sender === 'incoming') {
+        if (lastMessage) {
+            if (lastMessage.sender === 'incoming') {
                 newSender = 'outgoing'
             }
-            else{
+            else {
                 newSender = 'incoming'
             }
-        }else {
+        } else {
             newSender = 'outgoing'
         }
-        setMessages([...messages, {
+        setMessages([...messages, { 
             content: msg,
             sender: newSender,
         }])
-        MoveToBottom()
     }
     return (
         <Layout>
@@ -65,13 +63,13 @@ export default function ChatRoom() {
                     </div>
                     <div className=" text-white relative flex flex-col h-[90vh]">
                         <div ref={divRef} className="overflow-y-auto h-[75vh] flex-1">
-                            <ChatMessages 
-                            messages={messages}
+                            <ChatMessages
+                                messages={messages}
                             />
                         </div>
                         <div className="pb-2">
-                            <ChatForm 
-                            sendMessage={sendMessage}
+                            <ChatForm
+                                sendMessage={sendMessage}
                             />
                         </div>
                     </div>
