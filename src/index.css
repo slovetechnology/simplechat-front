@@ -4,9 +4,13 @@
 
 :root {
   --outgoing-color: #77b5ab;
+  --outgoing-color-dark: #4e756e;
 }
 .outgo {
   background-color: var(--outgoing-color);
+}
+.outgodark {
+  background-color: var(--outgoing-color-dark);
 }
 
 body {
