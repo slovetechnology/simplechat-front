@@ -40,13 +40,18 @@ export default function ChatForm({ sendMessage }) {
                         }}
                     />
                 </div>}
-                <button><FaRegSmile onClick={() => setIcons(!icons)} className={`text-2xl ${icons ? 'text-green-500' : 'text-zinc-400'}`} /></button>
-                <button> <FaPlus className="text-2xl text-zinc-400" /> </button>
-                <textarea 
+                <button><FaRegSmile onClick={() => setIcons(!icons)} className={`text-xl ${icons ? 'text-green-500' : 'text-zinc-400'}`} /></button>
+                <button>
+                    <label>
+                    <FaPlus className="text-xl text-zinc-400" /> 
+                        <input type="file" hidden />
+                    </label>
+                </button>
+                <textarea
                     ref={textareaRef}
-                onChange={e => setText(e.target.value)} 
-                value={text} 
-                className="chatform w-full resize-none rounded-lg bg-[#2e404a] pt-2 pl-3 scrolls outline-none border-none" placeholder="Type a message"></textarea>
+                    onChange={e => setText(e.target.value)}
+                    value={text}
+                    className="chatform w-full resize-none rounded-lg bg-[#2e404a] pt-2 pl-3 scrolls outline-none border-none" placeholder="Type a message"></textarea>
                 {/* <InputEmoji
                     value={text}
                     onChange={setText}
@@ -55,7 +60,7 @@ export default function ChatForm({ sendMessage }) {
                 {text.length > 0 &&
                     <button
                         onClick={SubmitContent}
-                        className="text-zinc-400 text-2xl">
+                        className="text-zinc-400 text-xl">
                         <FaRegPaperPlane />
                     </button>}
             </div>
