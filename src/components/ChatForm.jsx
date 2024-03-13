@@ -3,6 +3,7 @@ import InputEmoji from "react-input-emoji";
 import { FaRegPaperPlane } from 'react-icons/fa6'
 import { EmojiPicker, Emoji } from "react-emoji-search";
 import { FaPlus, FaRegSmile } from "react-icons/fa";
+import { MoveToBottom } from "./functions";
 
 
 
@@ -15,16 +16,18 @@ export default function ChatForm({ sendMessage }) {
         sendMessage(text)
         setText("")
         setIcons(false)
+        MoveToBottom()
     }
 
     const InputEmojiHandler = val => {
         const textarea = textareaRef.current;
-        const start = textarea.selectionStart;
+        const start = textarea.selectionStart; 
         const end = textarea.selectionEnd;
         const newText = text.substring(0, start) + val + text.substring(end);
         setText(newText);
         textarea.focus();
         textarea.setSelectionRange(start + val.length, start + val.length);
+        MoveToBottom()
     }
 
     return (

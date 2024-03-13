@@ -4,25 +4,21 @@ import ChatForm from "../components/ChatForm";
 import Layout from "../components/Layout";
 import avatar from '../assets/avatar.png'
 import ChatMessages from '../components/ChatMessages';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { MoveToBottom } from '../components/functions';
 
 export default function ChatRoom() {
     const [messages, setMessages] = useState([])
-    const divRef = useRef()
 
-    const MoveToBottom = () => {
-        divRef.current.scrollTo({
-            top: divRef.current.scrollHeight,
-            behavior: 'smooth'
-        })
-    }
+    const FetchMessages = useCallback(() => {
+        // MoveToBottom()
+    }, [])
 
     useEffect(() => {
         MoveToBottom()
     }, [messages])
 
     const sendMessage = (msg) => {
-        MoveToBottom()
         let newSender;
         const lastMessage = messages[messages.length - 1];
         if (lastMessage) {
@@ -35,10 +31,13 @@ export default function ChatRoom() {
         } else {
             newSender = 'outgoing'
         }
-        setMessages([...messages, { 
+        const data = {
             content: msg,
             sender: newSender,
-        }])
+        }
+        // setMessages([...messages, data])
+        setMessages(prev => [...prev, data])
+        MoveToBottom()
     }
     return (
         <Layout>
@@ -62,7 +61,7 @@ export default function ChatRoom() {
                         </div>
                     </div>
                     <div className=" text-white relative flex flex-col h-[90vh]">
-                        <div ref={divRef} className="overflow-y-auto h-[75vh] flex-1">
+                        <div className="overflow-y-auto divs h-[75vh] flex-1">
                             <ChatMessages
                                 messages={messages}
                             />
