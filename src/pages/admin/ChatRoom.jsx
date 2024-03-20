@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import { FaArrowLeft, FaEllipsisV } from "react-icons/fa";
-import ChatForm from "../components/ChatForm";
-import Layout from "../components/Layout";
-import avatar from '../assets/avatar.png'
-import ChatMessages from '../components/ChatMessages';
+import ChatForm from "../../components/ChatForm";
+import Layout from "../../components/Layout";
+import avatar from '../../assets/avatar.png'
+import ChatMessages from '../../components/ChatMessages';
 import { useCallback, useEffect, useState } from 'react';
-import { MoveToBottom } from '../components/functions';
+import { MoveToBottom } from '../../components/functions';
 
 export default function ChatRoom() {
     const [messages, setMessages] = useState([])

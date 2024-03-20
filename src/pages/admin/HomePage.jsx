@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import Chats from "../components/Chats";
-import Layout from "../components/Layout";
+import Chats from "../../components/Chats";
+import Layout from "../../components/Layout";
 import { BiSolidCommentDetail } from 'react-icons/bi'
 
 export default function HomePage() {
