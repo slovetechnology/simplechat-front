@@ -1,8 +1,27 @@
-# React + Vite
+API DOCUMENTATION 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+localhostURL = http://localhost:5002/api/user
+### POST Request - Create a new user with phone, password and image, Username is optional
+'create'
+### endpoint = 'http://localhost:5002/api/user/create'
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+### POST Request - Login a user with phone and password
+'login'
+### endpoint = 'http://localhost:5002/api/user/login'
+
+
+
+
+### GET Request - Get all users without the logged in user
+'allusers'
+### endpoint = 'http://localhost:5002/api/user/allusers'
+
+
+
+
+### GET Request - Get User Profile
+'getuser'
+### endpoint = 'http://localhost:5002/api/user/getuser'

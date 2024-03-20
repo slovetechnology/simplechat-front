@@ -7,6 +7,7 @@ import { MoveToBottom } from "./functions";
 
 
 
+
 export default function ChatForm({ sendMessage }) {
     const [text, setText] = useState("");
     const [icons, setIcons] = useState(false)
@@ -26,14 +27,15 @@ export default function ChatForm({ sendMessage }) {
         const newText = text.substring(0, start) + val + text.substring(end);
         setText(newText);
         textarea.focus();
-        textarea.setSelectionRange(start + val.length, start + val.length);
+        // textarea.setSelectionRange(start + val.length, start + val.length);
         MoveToBottom()
     }
 
     return (
         <div className="relative">
-            <div className="flex items-center gap-3 w-11/12 mx-auto pt-2">
-                {icons && <div className="h-[20rem] w-full absolute bottom-16 left-0">
+            <div className="flex items-center w-11/12 gap-3 pt-2 mx-auto">
+                {icons && 
+                    <div className="h-[20rem] w-full absolute bottom-16 left-0">
                     <EmojiPicker
                         onEmojiClick={(emoji) => InputEmojiHandler(emoji)}
                         emojiSize={24}
@@ -63,7 +65,7 @@ export default function ChatForm({ sendMessage }) {
                 {text.length > 0 &&
                     <button
                         onClick={SubmitContent}
-                        className="text-zinc-400 text-xl">
+                        className="text-xl text-zinc-400">
                         <FaRegPaperPlane />
                     </button>}
             </div>
