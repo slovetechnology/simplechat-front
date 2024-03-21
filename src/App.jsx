@@ -12,7 +12,7 @@ export default function App() {
   return (
    <BrowserRouter>
    <Routes>
-    <Route path="/" element={<HomePage/>} />
+    <Route path="/" element={<AuthRoute><HomePage/></AuthRoute>} />
     <Route path="/users" element={<AuthRoute><UsersPage /></AuthRoute>} />
     <Route path="/chat/:roomid" element={<AuthRoute><ChatRoom /></AuthRoute>} />
     <Route path="/login" element={<Login />} />
