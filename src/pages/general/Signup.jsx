@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from '../../components/Layout'
-import { MdMarkEmailUnread, MdLock } from "react-icons/md";
+import { MdLock } from "react-icons/md";
+import { LuUserCircle } from "react-icons/lu";
 import { IoEye } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from 'react-router-dom/dist';
@@ -78,10 +79,12 @@ const Signup = () => {
         formbody.append('phone', form.phone)
         formbody.append('password', form.password)
 
+        setLoading(true)
+
     }
     return (
         <Layout>
-            <div className="h-[100vh] overflow-y-auto border border-slate-700">
+            <div className={`h-screen ${!loading ? 'overflow-y-auto' : 'overflow-hidden'} border-x border-slate-700 relative`}>
                 {loading && <Loading />}
                 <div className='w-[90%] mx-auto py-[2.5rem]'>
                     <div className='text-[2rem] text-white uppercase  mb-[1rem]'>sign up page</div>
@@ -91,8 +94,8 @@ const Signup = () => {
                                 <img src={profile.img} alt="" className="w-[3.9rem] object-cover h-[3.9rem] rounded-full border border-white" />
                             </div>
                             :
-                            <div className="w-fit mx-auto text-3xl bg-slate-200 p-4 rounded-full relative"> <SlUser className='text-[#61611a]'  />
-                                <SlCamera className='absolute top-6 right-[-0.4rem] text-[0.95rem] text-[#61611a]' />
+                            <div className="w-fit mx-auto text-3xl bg-slate-200 p-4 rounded-full relative"> <SlUser className='text-green-500'  />
+                                <SlCamera className='absolute top-6 right-[-0.4rem] text-[0.95rem] text-green-500' />
                             </div>
                         }
                         <input ref={imgref} type="file" onChange={handleProfileUpload} hidden />
@@ -102,7 +105,7 @@ const Signup = () => {
                             <div className='flex gap-[1rem] flex-col'>
                                 <div className='flex gap-[0.5rem] flex-col relative'>
                                     <div className='flex gap-1'>
-                                        <FaPhoneAlt className='text-[0.9rem] mt-[0.12rem] text-[#61611a]' />
+                                        <LuUserCircle className='text-[0.9rem] mt-[0.12rem] text-green-500' />
                                         <div className='text-[0.75rem]  font-[550] text-white flex items-center gap-2'>
                                             <span className='capitalize'>username</span>
                                             <span>(optional)</span>
@@ -114,7 +117,7 @@ const Signup = () => {
                             <div className='flex gap-[1rem] flex-col'>
                                 <div className='flex gap-[0.5rem] flex-col relative'>
                                     <div className='flex gap-1'>
-                                        <FaPhoneAlt className='text-[0.9rem] mt-[0.12rem] text-[#61611a]' />
+                                        <FaPhoneAlt className='text-[0.9rem] mt-[0.12rem] text-green-500' />
                                         <div className='text-[0.75rem] capitalize font-[550] text-white'>phone number</div>
                                     </div>
                                     <input placeholder='Enter your mobile number' className=' outline-none rounded-[3px] w-full h-fit py-[0.5rem] border bg-[#111827] pl-[1rem] justify-center text-[0.9rem] text-white ipt' type='text' value={form.phone} name='phone' onChange={inputHandler}></input>
@@ -124,30 +127,30 @@ const Signup = () => {
                             <div className='flex gap-[1rem] flex-col'>
                                 <div className='flex gap-[0.5rem] flex-col relative'>
                                     <div className='flex gap-1'>
-                                        <MdLock className='text-[0.9rem] mt-[0.12rem] text-[#61611a]' />
+                                        <MdLock className='text-[0.9rem] mt-[0.12rem] text-green-500' />
                                         <div className='text-[0.75rem] capitalize font-[550] text-white'>password</div>
                                     </div>
                                     <input placeholder='Enter password' className=' outline-none rounded-[3px] w-full h-fit py-[0.5rem]  border bg-[#111827] pl-[1rem] justify-center text-[0.9rem] text-white ipt ' type={eye === true ? 'text' : 'password'} value={form.password} name='password' onChange={inputHandler}></input>
-                                    <EyeIcon className='absolute top-[2.4rem] right-2 cursor-pointer text-[#61611a]' onClick={() => setEye(!eye)} />
+                                    <EyeIcon className='absolute top-[2.4rem] right-2 cursor-pointer text-green-500' onClick={() => setEye(!eye)} />
                                     <div className={`text-[0.75rem] mt-[-0.3rem] absolute bottom-[-1.2rem] left-0 text-[#a53636]`}> {passmsg} </div>
                                 </div>
                             </div>
                             <div className='flex gap-[1rem] flex-col'>
                                 <div className='flex gap-[0.5rem] flex-col relative'>
                                     <div className='flex gap-1'>
-                                        <MdLock className='text-[0.9rem] mt-[0.12rem] text-[#61611a]' />
+                                        <MdLock className='text-[0.9rem] mt-[0.12rem] text-green-500' />
                                         <div className='text-[0.75rem] capitalize font-[550] text-white'>confirm password</div>
                                     </div>
                                     <input placeholder='Enter password' className=' outline-none rounded-[3px] w-full h-fit py-[0.5rem]  border bg-[#111827] pl-[1rem] justify-center text-[0.9rem] text-white ipt ' type={eye2 === true ? 'text' : 'password'} value={form.confirm_password} name='confirm_password' onChange={inputHandler}></input>
-                                    <EyeIcon2 className='absolute top-[2.4rem] right-2 cursor-pointer text-[#61611a]' onClick={() => setEye2(!eye2)} />
+                                    <EyeIcon2 className='absolute top-[2.4rem] right-2 cursor-pointer text-green-500' onClick={() => setEye2(!eye2)} />
                                     <div className={`text-[0.75rem] mt-[-0.3rem] absolute bottom-[-1.2rem] left-0 text-[#a53636]`}> {conmsg} </div>
                                 </div>
                             </div>
                         </div>
                         <div className='flex flex-col gap-[0.5rem] items-center mt-[2rem]'>
-                            <button className='outline-none bg-[#61611a] py-[0.5rem] px-[8rem] h-fit w-fit rounded-md capitalize text-[0.9rem] text-[white] cursor-pointer font-[550]' type='submit' >sign up</button>
+                            <button className='outline-none bg-green-500 py-[0.5rem] px-[8rem] h-fit w-fit rounded-md capitalize text-[0.9rem] text-[white] cursor-pointer font-[550]' type='submit' >sign up</button>
                             <div className='text-white text-[0.8rem] font-[550]'>Already have an account?
-                                <Link to='/login' className='cursor-pointer text-[#61611a]' > Login</Link>
+                                <Link to='/login' className='cursor-pointer text-green-500' > Login</Link>
                             </div>
                         </div>
                     </form>
