@@ -7,6 +7,10 @@ import { IoMdEyeOff } from "react-icons/io";
 import { useState } from 'react';
 import Loading from '../../components/Loading';
 import { FaPhoneAlt } from "react-icons/fa";
+import { Alert, CookieName } from '../../utils/utils';
+import { API, ClientPostApi } from '../../services/API';
+import Cookies from 'js-cookie';
+
 
 const Login = () => {
     const navigate = useNavigate()
@@ -19,6 +23,7 @@ const Login = () => {
         phone: '',
         password: ''
     })
+
     const inputHandler = event => {
         setForm({
             ...form,
@@ -38,10 +43,23 @@ const Login = () => {
         if (!form.password) return setPassMsg('field cannot be empty')
 
         const formbody = {
-            email: form.email,
+            phone: form.phone,
             password: form.password
         }
         setLoading(true)
+        try {
+            const res = await ClientPostApi(API.auth.login_account, formbody)
+            if(res.status === 200) {
+                Cookies.set(CookieName, res.token)
+                navigate('/')
+            }else {
+                Alert('Request Failed', res.msg, 'error')
+            }
+        } catch (error) {
+            Alert('Request Failed', `${error.message}`, 'error')
+        }finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -58,7 +76,7 @@ const Login = () => {
                                         <FaPhoneAlt className='text-[0.9rem] mt-[0.12rem] text-green-500' />
                                         <div className='text-[0.75rem] capitalize font-[550] text-white'>phone number</div>
                                     </div>
-                                    <input placeholder='Enter email address' className=' outline-none rounded-[3px] w-full h-fit py-[0.5rem] border bg-[#111827] pl-[1rem] justify-center text-[0.9rem] text-white ipt' type='text' value={form.phone} name='phone' onChange={inputHandler}></input>
+                                    <input placeholder='Enter Phone Number' className=' outline-none rounded-[3px] w-full h-fit py-[0.5rem] border bg-[#111827] pl-[1rem] justify-center text-[0.9rem] text-white ipt' type='text' value={form.phone} name='phone' onChange={inputHandler}></input>
                                     <div className={`text-[0.75rem] mt-[-0.3rem] absolute bottom-[-1.2rem] left-0 text-[#dd4f4f] `}>{phonemsg}</div>
                                 </div>
                             </div>
