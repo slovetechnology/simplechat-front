@@ -10,6 +10,9 @@ import { FaPhoneAlt } from "react-icons/fa";
 import Loading from '../../components/Loading';
 import { useRef } from 'react';
 import { SlCamera, SlUser } from 'react-icons/sl'
+import Cookies from 'js-cookie';
+import { API, ClientPostApi } from '../../services/API';
+import { Alert, CookieName } from '../../utils/utils';
 
 const Signup = () => {
     const navigate = useNavigate()
@@ -40,18 +43,13 @@ const Signup = () => {
       })
       const imgref = useRef()
 
-      const handleProfileUpload = (event) => {
-        setTimeout(() => {
-          setImageError(false)
-        }, 2000)
+      const handleProfileUpload = (event) => { 
         const file = event.target.files[0]
         if (file.size >= 1000000) {
           imgref.current.value = null
-          return setImageError('File size too large', 'image uploads must not exceed 1MB file size', 'info')
         }
         if (!file.type.startsWith('image/')) {
           imgref.current.value = null
-          return setImageError('File Error', 'image uploaded must be a valid image format (jpg, jpeg, png, svg)', 'info')
         }
         setProfile({
           img: URL.createObjectURL(file),
@@ -78,8 +76,23 @@ const Signup = () => {
         formbody.append('username', form.username)
         formbody.append('phone', form.phone)
         formbody.append('password', form.password)
+        formbody.append('confirm_password', form.confirm_password)
 
         setLoading(true)
+
+        try {
+            const res = await ClientPostApi(API.auth.create_account, formbody)
+            if(res.status === 200) {
+                Cookies.set(CookieName, res.token)
+                navigate('/')
+            }else {
+                Alert('Request Failed', res.msg, 'error')
+            }
+        } catch (error) {
+            Alert('Request Failed', `${error.message}`, 'error')
+        }finally {
+            setLoading(false)
+        }
 
     }
     return (
@@ -88,7 +101,7 @@ const Signup = () => {
                 {loading && <Loading />}
                 <div className='w-[90%] mx-auto py-[2.5rem]'>
                     <div className='text-[2rem] text-white uppercase  mb-[1rem]'>sign up page</div>
-                    <label className='cursor-pointer'>
+                    <label className='cursor-pointer '>
                         {profile.img ?
                             <div className='relative flex items-center justify-center'>
                                 <img src={profile.img} alt="" className="w-[3.9rem] object-cover h-[3.9rem] rounded-full border border-white" />
