@@ -56,6 +56,7 @@ export default function ChatForm({ sendMessage }) {
         }
     }
 
+    
     return (
         <div className="relative">
             <div className="flex items-center w-11/12 gap-3 pt-2 mx-auto">
