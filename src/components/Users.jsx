@@ -40,7 +40,7 @@ export default function Users() {
         try {
             const response = await AuthPostApi(API.auth.create_room, formdata)
             if(response.status === 200) {
-                navigate(`/chat/${response.msg}`)
+                navigate(`/chat?u=${response.msg}`)
             }
         } catch (error) {
             Alert(`${error.message}`)

@@ -2,13 +2,17 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { CookieName } from '../utils/utils'
-
+import {io} from 'socket.io-client'
 
 
 const BaseURL = import.meta.env.VITE_API_URL
 export const imgurl = import.meta.env.VITE_API_URL
 
+export const socket = io(BaseURL)
 
+socket.on('connect', (data) => {
+    // console.log('connected to server')
+})
 
 const user = 'api/user/'
 const auth_urls = {
@@ -18,6 +22,7 @@ const auth_urls = {
     all_users: user + 'allusers',
     create_room: user + 'create-room',
     get_chat_room: user + 'get-chat-room',
+    send_chat_message: user + 'send-chat-message',
 }
 
 const chats_urls = {

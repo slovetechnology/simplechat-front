@@ -14,7 +14,7 @@ export default function App() {
    <Routes>
     <Route path="/" element={<AuthRoute><HomePage/></AuthRoute>} />
     <Route path="/users" element={<AuthRoute><UsersPage /></AuthRoute>} />
-    <Route path="/chat/:roomid" element={<AuthRoute><ChatRoom /></AuthRoute>} />
+    <Route path="/chat" element={<AuthRoute><ChatRoom /></AuthRoute>} />
     <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
    </Routes>

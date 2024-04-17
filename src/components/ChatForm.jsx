@@ -1,9 +1,12 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InputEmoji from "react-input-emoji";
 import { FaRegPaperPlane } from 'react-icons/fa6'
 import { EmojiPicker, Emoji } from "react-emoji-search";
 import { FaPlus, FaRegSmile } from "react-icons/fa";
 import { MoveToBottom } from "./functions";
+import { Alert } from "../utils/utils";
+import { API, AuthPostApi, socket } from "../services/API";
+import {useSearchParams} from 'react-router-dom'
 
 
 
@@ -12,12 +15,25 @@ export default function ChatForm({ sendMessage }) {
     const [text, setText] = useState("");
     const [icons, setIcons] = useState(false)
     const textareaRef = useRef()
+    const [params, setParams] = useSearchParams()
+    const roomid = params.get('u')
 
-    const SubmitContent = () => {
-        sendMessage(text)
-        setText("")
-        setIcons(false)
-        MoveToBottom()
+    const SubmitContent = async () => {
+        const formdata = {
+            roomid: roomid,
+            content: text
+        }
+        try {
+            const response = await AuthPostApi(API.auth.send_chat_message, formdata)
+            if(response.status === 200) {
+                sendMessage()
+                setText("")
+                setIcons(false)
+                MoveToBottom()
+            }
+        } catch (error) {
+            Alert('Failed', `${error.message}`, 'error')
+        }
     }
 
     const InputEmojiHandler = val => {
@@ -29,6 +45,15 @@ export default function ChatForm({ sendMessage }) {
         textarea.focus();
         // textarea.setSelectionRange(start + val.length, start + val.length);
         MoveToBottom()
+    }
+
+    const handleTyping  = e => {
+        const value = e.target.value;
+        if(value) {
+            socket.emit('user-is-typing')
+        }else {
+            socket.emit('user-is-not-typing')
+        }
     }
 
     return (
@@ -56,6 +81,7 @@ export default function ChatForm({ sendMessage }) {
                     ref={textareaRef}
                     onChange={e => setText(e.target.value)}
                     value={text}
+                    onKeyUp={handleTyping}
                     className="chatform w-full resize-none rounded-lg bg-[#2e404a] pt-2 pl-3 scrolls outline-none border-none" placeholder="Type a message"></textarea>
                 {/* <InputEmoji
                     value={text}
