@@ -6,11 +6,13 @@ import { useQuery } from '@tanstack/react-query'
 import { API, AuthGetApi, AuthPostApi, imgurl } from '../services/API'
 import moment from  'moment'
 import { Alert } from '../utils/utils'
+import {useSelector} from 'react-redux'
 
 
 
 export default function Users() {
     const navigate = useNavigate()
+    const profile = useSelector(state => state.data.profile)
     const [view, setView] = useState({
         status: false,
         img: null
@@ -32,7 +34,8 @@ export default function Users() {
 
     const CreateRoom = async (id) => {
         const formdata = {
-            reciever: id
+            reciever: id,
+            sender: profile.id
         }
         try {
             const response = await AuthPostApi(API.auth.create_room, formdata)
